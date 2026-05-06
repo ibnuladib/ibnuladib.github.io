@@ -32,7 +32,7 @@ function App() {
             </div>
             <div className="absolute bottom-8 right-20">
                 <a
-                href="https://www.linkedin.com/in/ibnul-adib-9b75772a7/"
+                href="https://www.linkedin.com/in/ibnul-adib-2264843b3/"
                 target="_blank"
                 rel="noopener noreferrer">
                 <FontAwesomeIcon size="xl" icon={faLinkedin} />
