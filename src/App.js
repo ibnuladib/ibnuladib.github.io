@@ -110,6 +110,7 @@ function App() {
               <Project {...projectData.project18} />
               <Project {...projectData.project19} />
               <Project {...projectData.project20} />
+              <Project {...projectData.project21} />
           </div>
         </section>
       )}
