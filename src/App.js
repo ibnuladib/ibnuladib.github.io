@@ -1,26 +1,31 @@
 // App.js
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import Project from './components/Project';
 import Research from './components/Research';
 import StatusBar from './components/StatusBar';
+import Tabs from './components/Tabs';
 import { projectData } from './data/projectData';
 import { researchData } from './data/researchData';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('projects');
+
   const projects = Object.keys(projectData)
     .sort()
     .map((key) => ({ key, ...projectData[key] }));
 
   const papers = researchData.papers;
+  const counts = { projects: projects.length, research: papers.length };
 
   return (
     <>
       <StatusBar />
+      <Tabs activeTab={activeTab} onChange={setActiveTab} counts={counts} />
 
       <main className="mx-auto px-4 md:w-3/4 lg:w-1/2 max-w-[820px] pt-12 pb-24 flex flex-col gap-16">
-        {/* Hero */}
+        {/* Hero — always visible */}
         <section className="flex flex-col gap-6 font-mono">
           <div className="flex items-center gap-3 text-eyebrow uppercase text-graphite">
             <span className="text-accent">$</span>
@@ -60,94 +65,78 @@ function App() {
               <span className="font-mono text-sm">linkedin</span>
             </a>
           </div>
-
-          {/* Anchor nav — reads as a filesystem ls */}
-          <nav aria-label="Sections" className="flex flex-wrap gap-x-6 gap-y-2 pt-6 border-t border-paper">
-            <a href="#projects" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
-              ~/projects <span className="text-accent">({projects.length})</span>
-            </a>
-            <a href="#experience" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
-              ~/experience
-            </a>
-            <a href="#research" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
-              ~/research <span className="text-accent">({papers.length})</span>
-            </a>
-          </nav>
         </section>
 
-        {/* Projects */}
-        <section id="projects" aria-labelledby="projects-heading" className="flex flex-col gap-2 scroll-mt-20">
-          <div className="flex items-baseline gap-3 mb-4">
-            <h2
-              id="projects-heading"
-              className="font-mono text-2xl font-bold text-chalk"
-            >
-              ~/projects
-            </h2>
-            <span className="font-mono text-sm text-graphite">ls -lt</span>
-          </div>
-
-          <div className="border-t border-paper">
-            {projects.map((p, i) => (
-              <Project key={p.key} index={i + 1} {...p} />
-            ))}
-          </div>
-        </section>
-
-        {/* Experience */}
-        <section id="experience" aria-labelledby="experience-heading" className="flex flex-col gap-4 scroll-mt-20">
-          <div className="flex items-baseline gap-3 mb-2">
-            <h2
-              id="experience-heading"
-              className="font-mono text-2xl font-bold text-chalk"
-            >
-              ~/experience
-            </h2>
-            <span className="font-mono text-sm text-graphite">cat experience.txt</span>
-          </div>
-
-          <div className="border-t border-paper py-6 font-mono text-graphite leading-relaxed">
-            <p className="mb-2">
-              <span className="text-accent">$</span> no full-time experience yet.
-            </p>
-            <p className="mb-2">
-              <span className="text-accent">$</span> looking for summer 2026 internships — backend, full-stack,
-              or ml engineering.
-            </p>
-            <p>
-              <span className="text-accent">$</span> open to interesting part-time or contract work in the meantime.
-              <a
-                href="mailto:adib.bdhk@gmail.com"
-                className="ml-2 text-accent hover:text-chalk transition-colors"
-              >
-                get in touch →
-              </a>
-            </p>
-          </div>
-        </section>
-
-        {/* Research */}
-        {papers.length > 0 && (
-          <section id="research" aria-labelledby="research-heading" className="flex flex-col gap-2 scroll-mt-20">
+        {/* Active tab content */}
+        {activeTab === 'projects' && (
+          <section aria-labelledby="projects-heading" className="flex flex-col gap-2">
             <div className="flex items-baseline gap-3 mb-4">
-              <h2
-                id="research-heading"
-                className="font-mono text-2xl font-bold text-chalk"
-              >
-                ~/research
+              <h2 id="projects-heading" className="font-mono text-2xl font-bold text-chalk">
+                ~/projects
               </h2>
-              <span className="font-mono text-sm text-graphite">cat papers/*</span>
+              <span className="font-mono text-sm text-graphite">ls -lt</span>
             </div>
-
             <div className="border-t border-paper">
-              {papers.map((paper, i) => (
-                <Research key={i} {...paper} />
+              {projects.map((p, i) => (
+                <Project key={p.key} index={i + 1} {...p} />
               ))}
             </div>
           </section>
         )}
 
-        {/* Footer */}
+        {activeTab === 'experience' && (
+          <section aria-labelledby="experience-heading" className="flex flex-col gap-4">
+            <div className="flex items-baseline gap-3 mb-2">
+              <h2 id="experience-heading" className="font-mono text-2xl font-bold text-chalk">
+                ~/experience
+              </h2>
+              <span className="font-mono text-sm text-graphite">cat experience.txt</span>
+            </div>
+            <div className="border-t border-paper py-6 font-mono text-graphite leading-relaxed">
+              <p className="mb-2">
+                <span className="text-accent">$</span> no full-time experience yet.
+              </p>
+              <p className="mb-2">
+                <span className="text-accent">$</span> looking for summer 2026 internships — backend, full-stack,
+                or ml engineering.
+              </p>
+              <p>
+                <span className="text-accent">$</span> open to interesting part-time or contract work in the meantime.{' '}
+                <a
+                  href="mailto:adib.bdhk@gmail.com"
+                  className="text-accent hover:text-chalk transition-colors"
+                >
+                  get in touch →
+                </a>
+              </p>
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'research' && (
+          <section aria-labelledby="research-heading" className="flex flex-col gap-2">
+            <div className="flex items-baseline gap-3 mb-4">
+              <h2 id="research-heading" className="font-mono text-2xl font-bold text-chalk">
+                ~/research
+              </h2>
+              <span className="font-mono text-sm text-graphite">cat papers/*</span>
+            </div>
+            {papers.length === 0 ? (
+              <div className="border-t border-paper py-6 font-mono text-graphite">
+                <p>
+                  <span className="text-accent">$</span> no papers to show yet.
+                </p>
+              </div>
+            ) : (
+              <div className="border-t border-paper">
+                {papers.map((paper, i) => (
+                  <Research key={i} {...paper} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
         <footer className="font-mono text-sm text-graphite border-t border-paper pt-6">
           <p>
             <span className="text-accent">$</span> exit
