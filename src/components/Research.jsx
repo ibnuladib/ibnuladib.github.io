@@ -1,74 +1,88 @@
 // src/components/Research.jsx
+// Research entry — same log-row treatment, but the lead is a venue + paper title.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faLink, faFlask } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faLink, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
-function Research(props) {
+function Research({ title, venue, date, tags, description, methodology, achievements, pdfLink, aclLink }) {
   return (
-    <div className='bg-[#2a2a2a] py-9 p-8 rounded-[2rem] shadow-md mb-6'>
-      <h1 className="text-2xl font-bold mb-2 text-white">{props.title}</h1>
-      <h2 className="text-lg text-fuchsia-400 mb-3">{props.venue}</h2>
-      <p className="text-sm text-gray-500 mb-4">{props.date}</p>
-
-      <div className="flex flex-wrap gap-2 mb-4">
-        {Array.isArray(props.tags) && props.tags.map((tag, index) => (
-          <span
-            key={index}
-            className="text-sm bg-gray-700 px-3 py-1 rounded-full text-gray-200"
-          >
-            {tag}
-          </span>
-        ))}
+    <article className="border-b border-paper py-6 font-mono">
+      <div className="flex items-baseline gap-3 text-eyebrow uppercase text-graphite mb-2">
+        <span className="text-accent">paper</span>
+        <span>{date}</span>
       </div>
 
-      <p className="text-gray-300 mb-4">{props.description}</p>
+      <h3 className="font-mono text-xl font-bold text-chalk mb-1 leading-tight">
+        {title}
+      </h3>
+      <p className="text-sm text-graphite italic mb-3">{venue}</p>
 
-      {props.methodology && (
-        <div className="mb-4">
-          <h3 className="text-md font-semibold text-white mb-2 flex items-center gap-2">
-            <FontAwesomeIcon icon={faFlask} className="text-fuchsia-400" />
-            Methodology:
-          </h3>
-          <p className="text-gray-300">{props.methodology}</p>
+      {Array.isArray(tags) && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-3">
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              className="text-xs text-graphite border border-paper px-2 py-0.5"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       )}
 
-      {props.achievements && (
+      <p className="font-sans text-graphite leading-relaxed mb-4">
+        <span className="text-accent mr-2">→</span>
+        {description}
+      </p>
+
+      {methodology && (
         <div className="mb-4">
-          <h3 className="text-md font-semibold text-white mb-2">Achievements:</h3>
-          <ul className="text-gray-300 list-disc list-inside">
-            {props.achievements.map((achievement, index) => (
-              <li key={index}>{achievement}</li>
+          <h4 className="text-eyebrow uppercase text-graphite mb-2">methodology</h4>
+          <p className="font-sans text-graphite leading-relaxed">{methodology}</p>
+        </div>
+      )}
+
+      {achievements && achievements.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-eyebrow uppercase text-graphite mb-2">results</h4>
+          <ul className="font-sans text-graphite">
+            {achievements.map((a, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="text-accent">·</span>
+                <span>{a}</span>
+              </li>
             ))}
           </ul>
         </div>
       )}
 
-      <div className="flex gap-4 mt-4">
-        {props.pdfLink && (
+      <div className="flex flex-wrap gap-6">
+        {pdfLink && (
           <a
-            href={props.pdfLink}
-            className="text-red-400 hover:text-red-300 transition-colors duration-200 flex items-center gap-2"
+            href={pdfLink}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-accent hover:text-chalk transition-colors"
           >
             <FontAwesomeIcon icon={faFilePdf} />
-            <span>PDF</span>
+            <span>pdf</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
           </a>
         )}
-        {props.aclLink && (
+        {aclLink && (
           <a
-            href={props.aclLink}
-            className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-2"
+            href={aclLink}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-accent hover:text-chalk transition-colors"
           >
             <FontAwesomeIcon icon={faLink} />
-            <span>ACL Anthology</span>
+            <span>anthology</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
           </a>
         )}
       </div>
-    </div>
+    </article>
   );
 }
 

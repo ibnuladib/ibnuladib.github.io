@@ -1,34 +1,53 @@
 // src/components/Project.jsx
+// Project entry — reads as a log row: number, date stamp, title, tags, command, link.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import React from 'react';
 
-function Project(props) {
+function Project({ index, title, date, tags, description, githubLink }) {
   return (
-    <div className='card bg-[#2a2a2a] py-9 p-8 rounded-[4rem] shadow-md mb-6' >
-      <h1 className="text-2xl font-bold mb-2">{props.title}</h1>
-      <h2 className="text-xl text-gray-300 mb-4">{props.date}</h2>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {Array.isArray(props.tags) && props.tags.map((tag, index) => (
-          <span 
-            key={index} 
-            className="text-sm bg-gray-700 px-3 py-1 rounded-full text-gray-200"
-          >
-            {tag}
-          </span>
-        ))}
+    <article className="border-b border-paper py-6 font-mono">
+      <div className="flex items-baseline gap-3 text-eyebrow uppercase text-graphite mb-2">
+        <span className="text-accent">{String(index).padStart(2, '0')}</span>
+        <span>{date}</span>
       </div>
-      <p className="text-gray-300 mb-4">{props.description}</p>
-      {props.githubLink && (
-        <a 
-          href={props.githubLink} 
-          className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
+
+      <h3 className="font-mono text-xl font-bold text-chalk mb-3 leading-tight">
+        {title}
+      </h3>
+
+      {Array.isArray(tags) && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-3">
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              className="text-xs text-graphite border border-paper px-2 py-0.5"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <p className="font-sans text-graphite leading-relaxed mb-3">
+        <span className="text-accent mr-2">→</span>
+        {description}
+      </p>
+
+      {githubLink && (
+        <a
+          href={githubLink}
           target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm text-accent hover:text-chalk transition-colors"
         >
-          <FontAwesomeIcon icon={faGithub} size='xl'/>
+          <FontAwesomeIcon icon={faGithub} />
+          <span>view source</span>
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
         </a>
       )}
-    </div>
+    </article>
   );
 }
 

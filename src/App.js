@@ -1,139 +1,161 @@
 // App.js
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import React, { useState } from 'react';
-import Button from './components/button';
-import Project from './components/project';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import React from 'react';
+import Project from './components/Project';
 import Research from './components/Research';
-import {projectData} from './data/projectData';
-import {researchData} from './data/researchData';
+import StatusBar from './components/StatusBar';
+import { projectData } from './data/projectData';
+import { researchData } from './data/researchData';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('projects');
+  const projects = Object.keys(projectData)
+    .sort()
+    .map((key) => ({ key, ...projectData[key] }));
+
+  const papers = researchData.papers;
 
   return (
-    <main className="mx-auto px-4 md:w-3/4 lg:w-1/2 max-w-[820px] flex flex-col gap-10">
-      <section className="flex flex-col md:flex-row items-center py-12 p-8 rounded-[4rem] shadow-md gap-10 bg-[#2a2a2a] relative">
-        <img
-          src="https://github.com/ibnuladib.png"
-          alt="Profile"
-          className="rounded-full mb-6 md:mb-0 w-[220px] h-[220px]"
-        />
-        <div className="text-center items-center md:text-left grow">
-          <div className='items-center'>
-            <h2 className="mb-8 text-5xl md:text-6xl lg:text-6xl font-extrabold bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 text-transparent bg-clip-text">
-              Hi, I'm Adib
+    <>
+      <StatusBar />
+
+      <main className="mx-auto px-4 md:w-3/4 lg:w-1/2 max-w-[820px] pt-12 pb-24 flex flex-col gap-16">
+        {/* Hero */}
+        <section className="flex flex-col gap-6 font-mono">
+          <div className="flex items-center gap-3 text-eyebrow uppercase text-graphite">
+            <span className="text-accent">$</span>
+            <span>whoami</span>
+          </div>
+
+          <h1 className="font-mono text-4xl md:text-6xl font-bold text-chalk leading-none">
+            Hi, I'm Adib.
+          </h1>
+
+          <p className="font-sans text-xl text-graphite leading-relaxed max-w-prose">
+            <span className="text-accent font-mono">cs student</span>{' '}
+            <span className="text-graphite">|</span>{' '}
+            <span className="text-accent font-mono">wannabe dev</span>. I build small tools, occasionally
+            ship something useful, and keep a record of it here.
+          </p>
+
+          <div className="flex items-center gap-6 pt-2">
+            <a
+              href="https://github.com/ibnuladib"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-graphite hover:text-accent transition-colors"
+              aria-label="GitHub"
+            >
+              <FontAwesomeIcon size="lg" icon={faGithub} />
+              <span className="font-mono text-sm">github</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ibnul-adib-2264843b3/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-graphite hover:text-accent transition-colors"
+              aria-label="LinkedIn"
+            >
+              <FontAwesomeIcon size="lg" icon={faLinkedin} />
+              <span className="font-mono text-sm">linkedin</span>
+            </a>
+          </div>
+
+          {/* Anchor nav — reads as a filesystem ls */}
+          <nav aria-label="Sections" className="flex flex-wrap gap-x-6 gap-y-2 pt-6 border-t border-paper">
+            <a href="#projects" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
+              ~/projects <span className="text-accent">({projects.length})</span>
+            </a>
+            <a href="#experience" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
+              ~/experience
+            </a>
+            <a href="#research" className="font-mono text-sm text-graphite hover:text-accent transition-colors">
+              ~/research <span className="text-accent">({papers.length})</span>
+            </a>
+          </nav>
+        </section>
+
+        {/* Projects */}
+        <section id="projects" aria-labelledby="projects-heading" className="flex flex-col gap-2 scroll-mt-20">
+          <div className="flex items-baseline gap-3 mb-4">
+            <h2
+              id="projects-heading"
+              className="font-mono text-2xl font-bold text-chalk"
+            >
+              ~/projects
             </h2>
-            <p className="text-2xl md:text-2xl font-bold text-white-400">cs student | wannabe dev</p>
-            <div className="lg:ml-16 mt-8 md:mt-12 flex justify-center md:justify-start gap-3">
-              {/* <Button btnName="GitHub" />
-              <Button btnName="LinkedIn" /> */}
-
-            </div>
-            <div className="absolute bottom-8 right-20">
-                <a
-                href="https://www.linkedin.com/in/ibnul-adib-2264843b3/"
-                target="_blank"
-                rel="noopener noreferrer">
-                <FontAwesomeIcon size="xl" icon={faLinkedin} />
-                </a>
-            </div>
-            <div className="absolute bottom-8 right-28">
-                <a
-                href="https://github.com/ibnuladib"
-                target="_blank"
-                rel="noopener noreferrer">
-                <FontAwesomeIcon size="xl" icon={faGithub} />
-                </a>
-            </div>
-
-
+            <span className="font-mono text-sm text-graphite">ls -lt</span>
           </div>
-        </div>
-      </section>
 
-      {/* Tab Navigation */}
-      <div className="flex justify-center gap-4">
-        <button
-          onClick={() => setActiveTab('projects')}
-          className={`px-6 py-3 rounded-full font-bold text-lg transition-all duration-200 ${
-            activeTab === 'projects'
-              ? 'bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 text-white'
-              : 'bg-[#2a2a2a] text-gray-400 hover:text-white'
-          }`}
-        >
-          Projects
-        </button>
-        <button
-          onClick={() => setActiveTab('experience')}
-          className={`px-6 py-3 rounded-full font-bold text-lg transition-all duration-200 ${
-            activeTab === 'experience'
-              ? 'bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 text-white'
-              : 'bg-[#2a2a2a] text-gray-400 hover:text-white'
-          }`}
-        >
-          Experience
-        </button>
-        <button
-          onClick={() => setActiveTab('research')}
-          className={`px-6 py-3 rounded-full font-bold text-lg transition-all duration-200 ${
-            activeTab === 'research'
-              ? 'bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 text-white'
-              : 'bg-[#2a2a2a] text-gray-400 hover:text-white'
-          }`}
-        >
-          Research
-        </button>
-      </div>
-
-      {/* Tab Content */}
-      {activeTab === 'projects' && (
-        <section className="bottom " style={{width: "100%"}}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Project {...projectData.project1} />
-              <Project {...projectData.project2} />
-              <Project {...projectData.project3} />
-              <Project {...projectData.project4} />
-              <Project {...projectData.project5} />
-              <Project {...projectData.project6} />
-              <Project {...projectData.project7} />
-              <Project {...projectData.project8} />
-              <Project {...projectData.project9} />
-              <Project {...projectData.project10} />
-              <Project {...projectData.project11} />
-              <Project {...projectData.project12} />
-              <Project {...projectData.project13} />
-              <Project {...projectData.project14} />
-              <Project {...projectData.project15} />
-              <Project {...projectData.project16} />
-              <Project {...projectData.project17} />
-              <Project {...projectData.project18} />
-              <Project {...projectData.project19} />
-              <Project {...projectData.project20} />
-              <Project {...projectData.project21} />
-          </div>
-        </section>
-      )}
-
-      {activeTab === 'experience' && (
-        <section className="bg-[#2a2a2a] rounded-[2rem] shadow-md p-8">
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">Work Experience</h3>
-          <div className="text-center text-gray-400">
-            <p className="text-lg">Coming soon...</p>
-          </div>
-        </section>
-      )}
-
-      {activeTab === 'research' && (
-        <section className="bottom " style={{width: "100%"}}>
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-            {researchData.papers.map((paper, index) => (
-              <Research key={index} {...paper} />
+          <div className="border-t border-paper">
+            {projects.map((p, i) => (
+              <Project key={p.key} index={i + 1} {...p} />
             ))}
           </div>
         </section>
-      )}
-    </main>
+
+        {/* Experience */}
+        <section id="experience" aria-labelledby="experience-heading" className="flex flex-col gap-4 scroll-mt-20">
+          <div className="flex items-baseline gap-3 mb-2">
+            <h2
+              id="experience-heading"
+              className="font-mono text-2xl font-bold text-chalk"
+            >
+              ~/experience
+            </h2>
+            <span className="font-mono text-sm text-graphite">cat experience.txt</span>
+          </div>
+
+          <div className="border-t border-paper py-6 font-mono text-graphite leading-relaxed">
+            <p className="mb-2">
+              <span className="text-accent">$</span> no full-time experience yet.
+            </p>
+            <p className="mb-2">
+              <span className="text-accent">$</span> looking for summer 2026 internships — backend, full-stack,
+              or ml engineering.
+            </p>
+            <p>
+              <span className="text-accent">$</span> open to interesting part-time or contract work in the meantime.
+              <a
+                href="mailto:adib.bdhk@gmail.com"
+                className="ml-2 text-accent hover:text-chalk transition-colors"
+              >
+                get in touch →
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* Research */}
+        {papers.length > 0 && (
+          <section id="research" aria-labelledby="research-heading" className="flex flex-col gap-2 scroll-mt-20">
+            <div className="flex items-baseline gap-3 mb-4">
+              <h2
+                id="research-heading"
+                className="font-mono text-2xl font-bold text-chalk"
+              >
+                ~/research
+              </h2>
+              <span className="font-mono text-sm text-graphite">cat papers/*</span>
+            </div>
+
+            <div className="border-t border-paper">
+              {papers.map((paper, i) => (
+                <Research key={i} {...paper} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Footer */}
+        <footer className="font-mono text-sm text-graphite border-t border-paper pt-6">
+          <p>
+            <span className="text-accent">$</span> exit
+          </p>
+          <p className="mt-1 text-graphite/60">built with react + tailwind. deployed to github pages.</p>
+        </footer>
+      </main>
+    </>
   );
 }
 
