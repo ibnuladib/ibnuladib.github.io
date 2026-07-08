@@ -146,4 +146,18 @@ export const projectData = {
       description: "Delete all your screenshots all at once!",
       githubLink: "https://github.com/ibnuladib/ScreenshotDeleter",
     },
+    project22: {
+      date: "July 2026",
+      title: "Gym Tracker",
+      tags: ["React", "TypeScript", "Tailwind CSS"],
+      description: "A fitness tracking web application (mobile friendly) to log workouts, track progress, and manage fitness goals",
+      githubLink: "https://github.com/ibnuladib/gym-tracker",
+    },
+    project23: {
+      date: "July 2026",
+      title: "IUT Hackathon Project",
+      tags: ["React", "FastAPI", "Discord Bot", "AI","IOT"],
+      description: "A collaborative project built during the IUT hackathon prelim focusing on making a Real-time electrical monitoring for 15 simulated devices across 3 office rooms, with a live web dashboard, a Discord bot to monitor the devices and send alerts, fastapi backend with AI responses",
+      githubLink: "https://github.com/Udoy2/IUT_HACKATHON",
+    },
   };

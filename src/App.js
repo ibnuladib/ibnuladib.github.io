@@ -13,7 +13,14 @@ function App() {
   const [activeTab, setActiveTab] = useState('projects');
 
   const projects = Object.keys(projectData)
-    .sort()
+    .sort((a, b) => {
+      // Convert date strings to comparable values for sorting
+      // Format: "Month YYYY" (e.g., "June 2026")
+      const dateA = new Date(`1 ${projectData[a].date}`);
+      const dateB = new Date(`1 ${projectData[b].date}`);
+      // Sort descending (newest first)
+      return dateB - dateA;
+    })
     .map((key) => ({ key, ...projectData[key] }));
 
   const papers = researchData.papers;
