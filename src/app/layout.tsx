@@ -6,8 +6,12 @@ export const metadata: Metadata = {
   title: "Ibnul Adib",
   description: "Projects, research, and notes from Ibnul Adib.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
     shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   manifest: "/manifest.json",
 };
