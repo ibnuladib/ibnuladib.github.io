@@ -1,0 +1,183 @@
+export type ProjectEntry = {
+  date: string;
+  title: string;
+  tags: string[];
+  description: string;
+  githubLink?: string;
+};
+
+export const projectData = {
+  project1: {
+    date: "June 2026",
+    title: "Ledger-Ai",
+    tags: ["TypeScript", "Next.js", "Supabase", "AI"],
+    description:
+      "AI insight dashboard for e-commerce owners with workspace creation, signal ingestion, AI tagging, and report generation",
+    githubLink: "https://github.com/Udoy2/Ledger-Ai",
+  },
+  project2: {
+    date: "April 2026",
+    title: "MusicSharingApp",
+    tags: ["TypeScript"],
+    description: "Music sharing web application",
+    githubLink: "https://github.com/ibnuladib/MusicSharingApp",
+  },
+  project3: {
+    date: "April 2026",
+    title: "spotmp3",
+    tags: ["JavaScript"],
+    description: "Spotify to MP3 converter/downloader",
+    githubLink: "https://github.com/ibnuladib/spotmp3",
+  },
+  project4: {
+    date: "March 2026",
+    title: "pomodoro",
+    tags: ["TypeScript"],
+    description: "Pomodoro timer application",
+    githubLink: "https://github.com/ibnuladib/pomodoro",
+  },
+  project5: {
+    date: "December 2025",
+    title: "util-task",
+    tags: ["TypeScript"],
+    description: "Utility task management application",
+    githubLink: "https://github.com/ibnuladib/util-task",
+  },
+  project6: {
+    date: "August 2025",
+    title: "login-system-flutter-flask",
+    tags: ["Flutter", "Flask", "Python"],
+    description: "Authentication system built with Flutter frontend and Flask backend",
+    githubLink: "https://github.com/ibnuladib/login-system-flutter-flask",
+  },
+  project7: {
+    date: "July 2025",
+    title: "MNIST-from-scratch-with-nn",
+    tags: ["Python", "NumPy", "Machine Learning"],
+    description: "Neural network built from scratch with NumPy to train on MNIST dataset",
+    githubLink: "https://github.com/ibnuladib/MNIST-from-scratch-with-nn",
+  },
+  project8: {
+    date: "July 2025",
+    title: "uci-har",
+    tags: ["Python", "Machine Learning"],
+    description: "Human Activity Recognition using UCI HAR dataset",
+    githubLink: "https://github.com/ibnuladib/uci-har",
+  },
+  project9: {
+    date: "June 2025",
+    title: "matchday",
+    tags: ["JavaScript", "Chrome Extension"],
+    description: "Chrome extension to show next fixtures for a selected team",
+    githubLink: "https://github.com/ibnuladib/matchday",
+  },
+  project10: {
+    date: "June 2025",
+    title: "SecondHandStore",
+    tags: ["PHP"],
+    description: "Second-hand marketplace web application",
+    githubLink: "https://github.com/ibnuladib/SecondHandStore",
+  },
+  project11: {
+    date: "March 2025",
+    title: "FormsWebApp",
+    tags: ["C#", "ASP.NET"],
+    description: "Web application for form handling and validation",
+    githubLink: "https://github.com/ibnuladib/FormsWebApp",
+  },
+  project12: {
+    date: "March 2025",
+    title: "UserAuthSystem",
+    tags: ["C#", ".NET"],
+    description: "User authentication and authorization system",
+    githubLink: "https://github.com/ibnuladib/UserAuthSystem",
+  },
+  project13: {
+    date: "January 2025",
+    title: "Fair_DiceGame",
+    tags: ["Python"],
+    description: "Provably fair dice game implementation",
+    githubLink: "https://github.com/ibnuladib/Fair_DiceGame",
+  },
+  project14: {
+    date: "December 2024",
+    title: "volume-control",
+    tags: ["Python", "Arduino", "C++"],
+    description: "Control your computer's volume using an encoder (custom volume knob)",
+    githubLink: "https://github.com/ibnuladib/volume-control-script",
+  },
+  project15: {
+    date: "November 2024",
+    title: "Course Material Downloader",
+    tags: ["Python", "Selenium"],
+    description: "Downloads all notes/course materials from AIUB portal",
+    githubLink: "https://github.com/ibnuladib/AIUB-Course-Material-Downloader-Script",
+  },
+  project16: {
+    date: "November 2024",
+    title: "CodeForces-Mail-to-Calender-script",
+    tags: ["Python", "Gmail API"],
+    description: "Uses Gmail API to find events and schedules them to Calendar",
+    githubLink: "https://github.com/ibnuladib/CodeForces-Mail-to-Calender-script",
+  },
+  project17: {
+    date: "September 2024",
+    title: "Appointment Scheduling WebApp",
+    tags: ["C#.NET", "JavaScript", "SQL", "Bootstrap"],
+    description:
+      "Web App for clinic to help with appointment management and scheduling, complete with its own REST API and .NET server",
+    githubLink: "https://github.com/ibnuladib/AppointmentWebApp",
+  },
+  project18: {
+    date: "September 2024",
+    title: "ezNotes",
+    tags: ["Java"],
+    description: "An easier way to focus on what is important - simple note taking app",
+    githubLink: "https://github.com/ibnuladib/ezNote",
+  },
+  project19: {
+    date: "September 2024",
+    title: "Finance Tracker",
+    tags: ["C#", "SQL", "Windows Forms"],
+    description:
+      "A simple finance tracker to keep track of your expenses and income while displaying important statistics",
+    githubLink: "https://github.com/ibnuladib/FinanceTracker",
+  },
+  project20: {
+    date: "September 2024",
+    title: "Employee Management System",
+    tags: ["Java", "MySQL", "Swing"],
+    description: "Employee Management Software as a JAVA project for OOP class",
+    githubLink: "https://github.com/ibnuladib/EmployeeManagementSystem",
+  },
+  project21: {
+    date: "July 2024",
+    title: "ScreenshotDeleter",
+    tags: ["Java", "JavaFX"],
+    description: "Delete all your screenshots all at once!",
+    githubLink: "https://github.com/ibnuladib/ScreenshotDeleter",
+  },
+  project22: {
+    date: "July 2026",
+    title: "Gym Tracker",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    description:
+      "A fitness tracking web application (mobile friendly) to log workouts, track progress, and manage fitness goals",
+    githubLink: "https://github.com/ibnuladib/gym-tracker",
+  },
+  project23: {
+    date: "July 2026",
+    title: "IUT Hackathon Project",
+    tags: ["React", "FastAPI", "Discord Bot", "AI", "IOT"],
+    description:
+      "A collaborative project built during the IUT hackathon prelim focusing on making a Real-time electrical monitoring for 15 simulated devices across 3 office rooms, with a live web dashboard, a Discord bot to monitor the devices and send alerts, fastapi backend with AI responses",
+    githubLink: "https://github.com/Udoy2/IUT_HACKATHON",
+  },
+  project24: {
+    date: "July 2026",
+    title: "GameAtlas",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    description: "A gaming catalog web app showcasing game collections with search and filtering",
+    githubLink: "https://github.com/ibnuladib/gameatlas",
+  },
+} satisfies Record<string, ProjectEntry>;

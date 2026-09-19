@@ -9,18 +9,39 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-ink: 14 14 16;
+    --color-paper: 22 22 24;
+    --color-graphite: 156 163 175;
+    --color-chalk: 212 212 216;
+    --color-accent: 57 255 20;
+    --color-fault: 255 59 48;
+    color-scheme: dark;
+  }
+
+  :root[data-theme="light"] {
+    --color-ink: 250 245 236;
+    --color-paper: 235 226 211;
+    --color-graphite: 125 112 95;
+    --color-chalk: 76 65 53;
+    --color-accent: 94 133 88;
+    --color-fault: 168 94 84;
+    color-scheme: light;
+  }
+
   body {
-    background-color: #0E0E10;
-    color: #D4D4D8;
+    background-color: rgb(var(--color-ink));
+    color: rgb(var(--color-chalk));
     font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     margin-top: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 220ms ease, color 220ms ease;
   }
 
   /* Visible keyboard focus — accessibility floor */
   :focus-visible {
-    outline: 1px solid #39FF14;
+    outline: 1px solid rgb(var(--color-accent));
     outline-offset: 2px;
   }
 

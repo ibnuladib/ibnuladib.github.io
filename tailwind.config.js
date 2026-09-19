@@ -6,12 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: '#0E0E10',
-        paper: '#161618',
-        graphite: '#9CA3AF',
-        chalk: '#D4D4D8',
-        accent: '#39FF14',
-        fault: '#FF3B30',
+        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        paper: 'rgb(var(--color-paper) / <alpha-value>)',
+        graphite: 'rgb(var(--color-graphite) / <alpha-value>)',
+        chalk: 'rgb(var(--color-chalk) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        fault: 'rgb(var(--color-fault) / <alpha-value>)',
       },
       fontFamily: {
         display: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
