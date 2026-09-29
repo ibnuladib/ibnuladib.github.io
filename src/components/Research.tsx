@@ -7,22 +7,24 @@ export default function Research({
   title,
   venue,
   date,
+  status,
   tags,
   description,
   methodology,
   achievements,
+  highlights,
   pdfLink,
   aclLink,
 }: ResearchPaper) {
   return (
     <article className="border-b border-paper py-6 font-mono">
       <div className="mb-2 flex items-baseline gap-3 text-eyebrow uppercase text-graphite">
-        <span className="text-accent">paper</span>
+        <span className="text-accent">{status === "ongoing" ? "research" : "paper"}</span>
         <span>{date}</span>
       </div>
 
       <h3 className="mb-1 font-mono text-xl font-bold leading-tight text-chalk">{title}</h3>
-      <p className="mb-3 text-sm italic text-graphite">{venue}</p>
+      {venue && <p className="mb-3 text-sm italic text-graphite">{venue}</p>}
 
       {tags.length > 0 && (
         <div className="mb-3 flex flex-wrap gap-2">
@@ -54,6 +56,20 @@ export default function Research({
               <li key={achievement} className="flex gap-2">
                 <span className="text-accent">-</span>
                 <span>{achievement}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {highlights && highlights.length > 0 && (
+        <div className="mb-4">
+          <h4 className="mb-2 text-eyebrow uppercase text-graphite">research highlights</h4>
+          <ul className="space-y-2 font-sans text-graphite">
+            {highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-2">
+                <span className="text-accent">-</span>
+                <span>{highlight}</span>
               </li>
             ))}
           </ul>

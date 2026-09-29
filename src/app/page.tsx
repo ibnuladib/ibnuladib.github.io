@@ -124,7 +124,7 @@ export default function Home() {
               <h2 id="research-heading" className="font-mono text-2xl font-bold text-chalk">
                 ~/research
               </h2>
-              <span className="font-mono text-sm text-graphite">cat papers/*</span>
+              <span className="font-mono text-sm text-graphite">cat research/*</span>
             </div>
             {papers.length === 0 ? (
               <div className="border-t border-paper py-6 font-mono text-graphite">
