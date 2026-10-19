@@ -10,7 +10,7 @@ type ProjectProps = ProjectEntry & {
 
 export default function Project({ index, title, date, tags, description, githubLink }: ProjectProps) {
   return (
-    <article className="border-b border-paper py-6 font-mono">
+    <article className="project-row -mx-2 border-b border-paper px-2 py-6 font-mono">
       <div className="mb-2 flex items-baseline gap-3 text-eyebrow uppercase text-graphite">
         <span className="text-accent">{String(index).padStart(2, "0")}</span>
         <span>{date}</span>

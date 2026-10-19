@@ -9,29 +9,32 @@
 @tailwind utilities;
 
 @layer base {
+  /* Phase 2 — OKLCH tokens, tinted toward phosphor green (hue ~145) */
   :root {
-    --color-ink: 14 14 16;
-    --color-paper: 22 22 24;
-    --color-graphite: 156 163 175;
-    --color-chalk: 212 212 216;
-    --color-accent: 57 255 20;
-    --color-fault: 255 59 48;
+    --color-ink: 0.145 0.012 145;
+    --color-paper: 0.22 0.014 145;
+    --color-graphite: 0.72 0.02 145;
+    --color-chalk: 0.88 0.015 145;
+    --color-accent: 0.88 0.28 145;
+    --color-fault: 0.68 0.2 25;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-play: cubic-bezier(0.22, 1, 0.36, 1);
     color-scheme: dark;
   }
 
   :root[data-theme="light"] {
-    --color-ink: 250 245 236;
-    --color-paper: 235 226 211;
-    --color-graphite: 125 112 95;
-    --color-chalk: 76 65 53;
-    --color-accent: 94 133 88;
-    --color-fault: 168 94 84;
+    --color-ink: 0.97 0.015 95;
+    --color-paper: 0.92 0.02 95;
+    --color-graphite: 0.52 0.025 95;
+    --color-chalk: 0.32 0.03 95;
+    --color-accent: 0.48 0.1 145;
+    --color-fault: 0.55 0.12 30;
     color-scheme: light;
   }
 
   body {
-    background-color: rgb(var(--color-ink));
-    color: rgb(var(--color-chalk));
+    background-color: oklch(var(--color-ink));
+    color: oklch(var(--color-chalk));
     font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     margin-top: 0;
     -webkit-font-smoothing: antialiased;
@@ -39,18 +42,136 @@
     transition: background-color 220ms ease, color 220ms ease;
   }
 
-  /* Visible keyboard focus — accessibility floor */
   :focus-visible {
-    outline: 1px solid rgb(var(--color-accent));
+    outline: 1px solid oklch(var(--color-accent));
     outline-offset: 2px;
   }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+    }
+    .pressable-control:active { transform: none; }
+    .section-content { transition-duration: 120ms; }
+    .terminal-cursor,
+    .terminal-cursor--idle,
+    .terminal-hero__scan {
+      animation: none !important;
     }
   }
+}
+
+/* Quiet section changes and brief press feedback. */
+.section-content { opacity: 1; transition: opacity 180ms var(--ease-out); }
+@starting-style { .section-content { opacity: 0; } }
+.pressable-control {
+  transition: transform 140ms var(--ease-out), color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  touch-action: manipulation;
+}
+.pressable-control:active { transform: scale(.97); }
+
+@media (prefers-reduced-transparency: reduce) {
+  .status-bar,.section-tabs-bar { background-color: oklch(var(--color-ink)) !important; backdrop-filter: none !important; }
+}
+
+@media (prefers-contrast: more) {
+  :root[data-theme="light"] {
+    --color-paper: 0.78 0.03 95;
+    --color-graphite: 0.38 0.03 95;
+    --color-chalk: 0.22 0.03 95;
+    --color-accent: 0.4 0.12 145;
+    --color-fault: 0.45 0.14 30;
+  }
+  :root:not([data-theme="light"]) {
+    --color-paper: 0.55 0.02 145;
+    --color-graphite: 0.84 0.02 145;
+    --color-chalk: 0.96 0.01 145;
+    --color-accent: 0.9 0.25 145;
+    --color-fault: 0.75 0.18 25;
+  }
+}
+
+/* Terminal hero — phosphor field + scanlines */
+.terminal-hero {
+  isolation: isolate;
+  padding: 0.25rem 0 0.5rem;
+}
+
+.terminal-hero__glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -12% -8% auto;
+  height: 120%;
+  background:
+    radial-gradient(ellipse 65% 50% at 8% 25%, oklch(var(--color-accent) / 0.16), transparent 62%),
+    radial-gradient(ellipse 45% 35% at 92% 18%, oklch(var(--color-accent) / 0.07), transparent 58%);
+  z-index: 0;
+}
+
+:root[data-theme="light"] .terminal-hero__glow {
+  background:
+    radial-gradient(ellipse 60% 45% at 10% 20%, oklch(var(--color-accent) / 0.08), transparent 65%),
+    radial-gradient(ellipse 40% 30% at 90% 15%, oklch(var(--color-accent) / 0.04), transparent 60%);
+}
+
+.terminal-hero__scan {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.28;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    oklch(var(--color-ink) / 0.4) 2px,
+    oklch(var(--color-ink) / 0.4) 3px
+  );
+  mix-blend-mode: soft-light;
+  animation: scan-drift 8s linear infinite;
+}
+
+:root[data-theme="light"] .terminal-hero__scan {
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  margin-left: 0.1ch;
+  background: oklch(var(--color-accent));
+  vertical-align: -0.12em;
+  animation: cursor-blink 1.05s steps(1, end) infinite;
+  box-shadow: 0 0 12px oklch(var(--color-accent) / 0.55);
+}
+
+.terminal-cursor--idle {
+  animation-duration: 1.2s;
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scan-drift {
+  from { background-position: 0 0; }
+  to { background-position: 0 48px; }
+}
+
+.project-row {
+  transition: background-color 220ms var(--ease-out), border-color 220ms var(--ease-out);
+}
+
+.project-row:hover {
+  background-color: oklch(var(--color-paper) / 0.45);
+}
+
+.status-bar__cursor {
+  animation: cursor-blink 1.1s steps(1, end) infinite;
+  box-shadow: 0 0 10px oklch(var(--color-accent) / 0.45);
 }
